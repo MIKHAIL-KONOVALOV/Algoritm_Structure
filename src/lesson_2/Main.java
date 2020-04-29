@@ -40,6 +40,6 @@ public class Main {
         long currentTime = System.currentTimeMillis();
         action.run();
         System.out.println(sortName + ": время сотировки  = " + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() -
-                currentTime) + " секунд");
+                currentTime) + " секунд.");
     }
 }

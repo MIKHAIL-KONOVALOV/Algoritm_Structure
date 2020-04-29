@@ -1,10 +1,7 @@
 package lesson_2;
 
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,43 +9,37 @@ import java.util.concurrent.TimeUnit;
  * Created on 28.04.2020
  */
 public class Main {
+
+    public static final int BOUND = 1000;
+    public static final int ARRAY_SIZE = 1_00_000;
+
     public static void main(String[] args) {
-        final int ARRAY_SIZE = 1_00_000;
         Array arr1 = new ArrayImplementation(ARRAY_SIZE);
         Array arr2 = new ArrayImplementation(ARRAY_SIZE);
         Array arr3 = new ArrayImplementation(ARRAY_SIZE);
 
+
+        initRndArrays(arr1,arr2,arr3);
+        measureTime(arr1::sortBubble,"Сортировка пузырьком");
+        measureTime(arr2::sortSelect,"Сортировка выбором");
+        measureTime(arr3::sortInsert,"Сортировка вставкой");
+    }
+
+    public static void initRndArrays(Array... arrays) {
         Random random = new Random();
-
         for (int i = 0; i < ARRAY_SIZE; i++) {
-            int randomValue = random.nextInt(1000);
-            arr1.add(randomValue);
-            arr2.add(randomValue);
-            arr3.add(randomValue);
+            int randomValue = random.nextInt(BOUND);
+            for (Array array : arrays) {
+                array.add(randomValue);
+            }
+
         }
-        testBubble(arr1);
-        testSelect(arr2);
-        testInsert(arr3);
     }
 
-    public static void testBubble(Array array) {
+    public static void measureTime(Runnable action, String sortName){
         long currentTime = System.currentTimeMillis();
-        array.sortBubble();
-        System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() -
-                currentTime));
-    }
-
-    public static void testSelect(Array array) {
-        long currentTime = System.currentTimeMillis();
-        array.sortSelect();
-        System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() -
-                currentTime));
-    }
-
-    public static void testInsert(Array array) {
-        long currentTime = System.currentTimeMillis();
-        array.sortInsert();
-        System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() -
-                currentTime));
+        action.run();
+        System.out.println(sortName + ": время сотировки  = " + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() -
+                currentTime) + " секунд");
     }
 }

@@ -1,6 +1,5 @@
-package lesson_2;
+package lesson_2_arrays;
 
-import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -14,9 +13,9 @@ public class Main {
     public static final int ARRAY_SIZE = 1_00_000;
 
     public static void main(String[] args) {
-        Array arr1 = new ArrayImplementation(ARRAY_SIZE);
-        Array arr2 = new ArrayImplementation(ARRAY_SIZE);
-        Array arr3 = new ArrayImplementation(ARRAY_SIZE);
+        Array arr1 = new SortedArrayImplementation(ARRAY_SIZE);
+        Array arr2 = new SortedArrayImplementation(ARRAY_SIZE);
+        Array arr3 = new SortedArrayImplementation(ARRAY_SIZE);
 
 
         initRndArrays(arr1,arr2,arr3);
